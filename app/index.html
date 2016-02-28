@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Map of vacancies</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--build:css main.css-->
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="../bower_components/leaflet/dist/leaflet.css" rel="stylesheet">
+    <link href="../bower_components/leaflet.markercluster/dist/MarkerCluster.css" rel="stylesheet">
+    <link href="../bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css" rel="stylesheet">
+    <link href="./style.css" rel="stylesheet">
+    <!--endbuild-->
+</head>
+<body ng-app="gmapApp" ng-cloak>
+
+<div ng-controller="gmapController">
+
+       <leaflet lf-center="minsk" markers="markers" layers="layers"
+             width="680px" height="480px"></leaflet>
+
+    <h1>First steps, basic example</h1>
+    <h1>Center map example</h1>
+     <ul>
+         <li><input type="number" step="any" ng-model="minsk.lat" /> Latitude</li>
+         <li><input type="number" step="any" ng-model="minsk.lng" /> Longitude</li>
+         <li><input type="number" step="any" ng-model="minsk.zoom" /> Zoom</li>
+     </ul>
+</div>
+
+
+    <!--build:js main.js -->
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/underscore/underscore.js"></script>
+    <script src="../bower_components/leaflet/dist/leaflet.js"></script>
+    <script src="../bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
+    <script src="../bower_components/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+
+    <script src="./app.module.js"></script>
+    <script src="./vmap/vmap.controller.js"></script>
+    <script src="./vmap/vmap.service.js"></script>
+    <!-- endbuild -->
+</body>
+</html>
