@@ -10,6 +10,7 @@ angular.module('gmapApp')
 
         this.getVac = function(partUrlDict){
             var partUrl = qs.stringify(partUrlDict, { indices: false });
+            console.log("URL", baseUrl+partUrl)
             return $http.get(baseUrl+partUrl);
         };
 

@@ -33,22 +33,8 @@ angular.module('gmapApp')
             name: "Not selected"
         };
 
-       /* $scope.searchingCriteria = {
-            text: 'javascript',
-            experience: [],
-            employment: [],
-            schedule: [],
-            currency: [],
-            salary: ''
-        };*/
 
-
-
-        gmapService.getVac(vm.params)
-            .then(success, error)
-            .then(getVacancyWithAddress)
-            .then(goodLatLng)
-            .then(getMarkers);
+        setMap();
 
         gmapService.getSearchParam()
             .then(callbackDict, error);
@@ -84,11 +70,16 @@ angular.module('gmapApp')
 
         function getMarkers(arr){
             $scope.markers = arr.map(function(item){
+                if(item.salary.from) {
+                    vm.message = item.name + '<br>'
+                        + item.employer.name + '<br>'
+                        + item.salary.from + item.salary.currency;
+                }
                 vm.a = {
                     layer: 'realworld',
                     lat: item.address.lat,
                     lng: item.address.lng,
-                    message: item.name
+                    message: vm.message
                 };
                 return vm.a;
             });
@@ -109,21 +100,25 @@ angular.module('gmapApp')
 
             $scope.currItems = response.data.currency;
             $scope.currItems.push($scope.currSelected);
-
-           // console.log('exp', $scope.searchingCriteria.experience);
         }
 
-        $scope.updateCriteria = function(){
-            vm.params.experience = $scope.expSelected.id;
-            vm.params.employment = $scope.emplSelected.id;
-            vm.params.schedule = $scope.shSelected.id;
-            vm.params.currency = $scope.currSelected.id;
-
+         function setMap(){
             gmapService.getVac(vm.params)
             .then(success, error)
             .then(getVacancyWithAddress)
             .then(goodLatLng)
             .then(getMarkers);
+        };
+
+        $scope.updateCriteria = function(){
+            vm.params.text = $scope.text;
+            vm.params.experience = $scope.expSelected.id;
+            vm.params.employment = $scope.emplSelected.id;
+            vm.params.schedule = $scope.shSelected.id;
+            vm.params.currency = $scope.currSelected.code;
+
+            setMap();
+
         };
 
         angular.extend($scope, {
