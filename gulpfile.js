@@ -1,19 +1,22 @@
 var gulp = require('gulp'),
-  minifycss = require('gulp-minify-css'),
-  jshint = require('gulp-jshint'),
-  stylish = require('jshint-stylish'),
-  uglify = require('gulp-uglify'),
-  usemin = require('gulp-usemin'),
-  imagemin = require('gulp-imagemin'),
-  rename = require('gulp-rename'),
-  concat = require('gulp-concat'),
-  notify = require('gulp-notify'),
-  cache = require('gulp-cache'),
-  changed = require('gulp-changed'),
-  rev = require('gulp-rev'),
-  browserSync = require('browser-sync'),
-  ngannotate = require('gulp-ng-annotate'),
-  del = require('del');
+    minifycss = require('gulp-minify-css'),
+    jshint = require('gulp-jshint'),
+    stylish = require('jshint-stylish'),
+    uglify = require('gulp-uglify'),
+    usemin = require('gulp-usemin'),
+    imagemin = require('gulp-imagemin'),
+    rename = require('gulp-rename'),
+    concat = require('gulp-concat'),
+    notify = require('gulp-notify'),
+    cache = require('gulp-cache'),
+    changed = require('gulp-changed'),
+    rev = require('gulp-rev'),
+    browserSync = require('browser-sync'),
+    ngannotate = require('gulp-ng-annotate'),
+    browserify = require('browserify'),
+    babelify = require("babelify"),
+    del = require('del');
+var source = require('vinyl-source-stream');
 
 
 gulp.task('jshint', function() {
@@ -32,7 +35,19 @@ gulp.task('default', ['clean'], function() {
   return gulp.start('usemin', 'imagemin', 'copyfonts');
 });
 
-gulp.task('usemin', ['jshint'], function() {
+
+gulp.task("js", function () {
+    var b = browserify({
+        entries: './app/',
+        debug: true,
+        transform: [babelify]
+      });
+    return b.bundle()
+        .pipe(source('all.js'))
+        .pipe(gulp.dest("dist"));
+});
+
+gulp.task('usemin', ['js', 'jshint'], function() {
   return gulp.src('./app/**/*.html')
     .pipe(usemin({
       css: [minifycss()],

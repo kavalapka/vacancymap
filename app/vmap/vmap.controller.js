@@ -1,28 +1,57 @@
 /**
  * Created by k_zenchyk on 2/28/16.
  */
+
+
 angular.module('gmapApp')
     .controller('gmapController', ['$scope', 'gmapService', function($scope, gmapService){
         var vm = this;
         vm.markers = [];
         $scope.markers = [];
 
-        vm.searchingCriteries = {
-            text: 'javascript',
-            experience: '',
-            employment: '',
-            schedule: '',
-            currency: '',
-            salary: ''
+        vm.params = {
+            items_on_page: 100,
+            only_with_salary: true,
+            area: 1002,
+            isMap: true,
+            bottom_left_lat: 53.885532714289496,
+            bottom_left_lng: 27.294241465367065,
+            top_right_lat: 53.9153377954745,
+            top_right_lng: 27.73369459036706
         };
 
+        $scope.expSelected = {
+            name: "Not selected"
+        };
+        $scope.emplSelected = {
+            name: "Not selected"
+        };
+        $scope.shSelected = {
+            name: "Not selected"
+        };
+        $scope.currSelected = {
+            name: "Not selected"
+        };
+
+       /* $scope.searchingCriteria = {
+            text: 'javascript',
+            experience: [],
+            employment: [],
+            schedule: [],
+            currency: [],
+            salary: ''
+        };*/
 
 
-        gmapService.getVac()
+
+        gmapService.getVac(vm.params)
             .then(success, error)
             .then(getVacancyWithAddress)
             .then(goodLatLng)
             .then(getMarkers);
+
+        gmapService.getSearchParam()
+            .then(callbackDict, error);
 
         function success(response){
             vm.vac = response.data.items;
@@ -66,6 +95,36 @@ angular.module('gmapApp')
             console.log('markers', $scope.markers);
             return $scope.markers
         }
+
+        function callbackDict(response){
+
+            $scope.expItems = response.data.experience;
+            $scope.expItems.push($scope.expSelected);
+
+            $scope.emplItems = response.data.employment;
+            $scope.emplItems.push($scope.emplSelected);
+
+            $scope.scheduleItems = response.data.schedule;
+            $scope.scheduleItems.push($scope.shSelected);
+
+            $scope.currItems = response.data.currency;
+            $scope.currItems.push($scope.currSelected);
+
+           // console.log('exp', $scope.searchingCriteria.experience);
+        }
+
+        $scope.updateCriteria = function(){
+            vm.params.experience = $scope.expSelected.id;
+            vm.params.employment = $scope.emplSelected.id;
+            vm.params.schedule = $scope.shSelected.id;
+            vm.params.currency = $scope.currSelected.id;
+
+            gmapService.getVac(vm.params)
+            .then(success, error)
+            .then(getVacancyWithAddress)
+            .then(goodLatLng)
+            .then(getMarkers);
+        };
 
         angular.extend($scope, {
             minsk: {
