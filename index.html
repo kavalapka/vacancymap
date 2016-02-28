@@ -1,3 +1,80 @@
-<html>
-<body>Test page</body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Map of vacancies</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="main.css"/>
+</head>
+<body ng-app="gmapApp" ng-cloak>
+
+<div class="container">
+
+<div ng-controller="gmapController">
+    <div class="col-xs-12 col-sm-3">
+        <form class="col-xs-12">
+            <div class="form-group row">
+                <label class="col-sm-3" for="text">Text</label>
+                <div class="col-sm-offset-1 col-sm-8">
+                    <input  id="text" type="text" ng-model="text">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3" for="experience">Experience</label>
+                <div class="col-sm-offset-1 col-sm-8">
+                    <select id="experience"
+                            ng-options="item.name for (key, item) in expItems" ng-model="expSelected">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="employment" class="col-sm-3">Employment</label>
+                <div class="col-sm-offset-1 col-sm-8">
+                    <select id="employment"
+                            ng-options="item.name for (key, item) in emplItems" ng-model="emplSelected">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="schedule" class="col-sm-3">Schedule</label>
+                <div class="col-sm-offset-1 col-sm-8">
+                    <select id="schedule"
+                            ng-options="item.name for (key, item) in scheduleItems" ng-model="shSelected">
+                    </select>
+                </div>
+                </div>
+            <div class="form-group row">
+            <label for="currency" class="col-sm-3">Currency</label>
+                <div class="col-sm-offset-1 col-sm-8">
+                    <select id="currency"
+                            ng-options="item.name for (key, item) in currItems" ng-model="currSelected">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+            <label for="salary" class="col-sm-3">Salary</label>
+                <div class="col-sm-offset-1 col-sm-8">
+                    <select id="salary"
+                           ng-options="item.name for (key, item) in salaryItems" ng-model="salarySelected">
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <button class="btn btn-primary" ng-click="updateCriteria()">Search</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-xs-12 col-sm-8">
+       <leaflet lf-center="minsk" markers="markers" layers="layers"
+             width="680px" height="480px"></leaflet>
+    </div>
+</div>
+
+</div>
+
+    <script src="main.js"></script>
+
+    <script src="all.js"></script>
+</body>
 </html>
