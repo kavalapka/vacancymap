@@ -27,7 +27,7 @@ gulp.task('jshint', function() {
 
 // Clean
 gulp.task('clean', function() {
-  return del(['dist']);
+  return del(['dist/*']);
 });
 
 // Default task
@@ -44,7 +44,7 @@ gulp.task("js", function () {
       });
     return b.bundle()
         .pipe(source('all.js'))
-        .pipe(gulp.dest("dist"));
+        .pipe(gulp.dest("dist/scripts"));
 });
 
 gulp.task('usemin', ['js', 'jshint'], function() {

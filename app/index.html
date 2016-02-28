@@ -5,7 +5,7 @@
     <title>Map of vacancies</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--build:css main.css-->
+    <!--build:css styles/main.css-->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="../bower_components/leaflet/dist/leaflet.css" rel="stylesheet">
@@ -23,13 +23,13 @@
         <form class="col-xs-12">
             <div class="form-group row">
                 <label class="col-sm-3" for="text">Text</label>
-                <div class="col-sm-offset-1 col-sm-8">
+                <div class="col-sm-offset-2 col-sm-7">
                     <input  id="text" type="text" ng-model="text">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3" for="experience">Experience</label>
-                <div class="col-sm-offset-1 col-sm-8">
+                <div class="col-sm-offset-2 col-sm-7">
                     <select id="experience"
                             ng-options="item.name for (key, item) in expItems" ng-model="expSelected">
                     </select>
@@ -37,7 +37,7 @@
             </div>
             <div class="form-group row">
                 <label for="employment" class="col-sm-3">Employment</label>
-                <div class="col-sm-offset-1 col-sm-8">
+                <div class="col-sm-offset-2 col-sm-7">
                     <select id="employment"
                             ng-options="item.name for (key, item) in emplItems" ng-model="emplSelected">
                     </select>
@@ -45,7 +45,7 @@
             </div>
             <div class="form-group row">
                 <label for="schedule" class="col-sm-3">Schedule</label>
-                <div class="col-sm-offset-1 col-sm-8">
+                <div class="col-sm-offset-2 col-sm-7">
                     <select id="schedule"
                             ng-options="item.name for (key, item) in scheduleItems" ng-model="shSelected">
                     </select>
@@ -53,7 +53,7 @@
                 </div>
             <div class="form-group row">
             <label for="currency" class="col-sm-3">Currency</label>
-                <div class="col-sm-offset-1 col-sm-8">
+                <div class="col-sm-offset-2 col-sm-7">
                     <select id="currency"
                             ng-options="item.name for (key, item) in currItems" ng-model="currSelected">
                     </select>
@@ -61,13 +61,13 @@
             </div>
             <div class="form-group row">
             <label for="salary" class="col-sm-3">Salary</label>
-                <div class="col-sm-offset-1 col-sm-8">
+                <div class="col-sm-offset-2 col-sm-7">
                     <select id="salary"
                            ng-options="item.name for (key, item) in salaryItems" ng-model="salarySelected">
                     </select>
                 </div>
             </div>
-            <div class="col-xs-12">
+            <div class="col-sm-offset-5 col-sm-2">
                 <button class="btn btn-primary" ng-click="updateCriteria()">Search</button>
             </div>
         </form>
@@ -80,7 +80,7 @@
 
 </div>
 
-    <!--build:js main.js -->
+    <!--build:js scripts/main.js -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/underscore/underscore.js"></script>
@@ -92,6 +92,6 @@
     <script src="./vmap/vmap.service.js"></script> -->
     <!-- endbuild -->
 
-    <script src="all.js"></script>
+    <script src="scripts/all.js"></script>
 </body>
 </html>
